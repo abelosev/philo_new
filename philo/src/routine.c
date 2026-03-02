@@ -12,17 +12,17 @@
 
 #include "philo.h"
 
-int	one_philo(t_philo *ph)
+int one_philo(t_philo *ph)
 {
-	if (ph->data->philo_nb == 1)
-	{
-		pthread_mutex_lock(&ph->data->dead);
-		ph->data->flag_death = true;
-		pthread_mutex_unlock(&ph->data->dead);
-		death_log(ph);
-		return (1);
-	}
-	return (0);
+    if (ph->data->philo_nb != 1)
+        return (0);
+    ph->start_meal = ph->data->start_simul;
+    pthread_mutex_lock(&ph->data->fork[0]);
+    ft_print(ph, 0);
+    ft_usleep(ph, ph->data->time_die);
+    pthread_mutex_unlock(&ph->data->fork[0]);
+	death_log(ph);
+    return (1);
 }
 
 void	forks_index(t_philo *ph, int *l_index, int *r_index)

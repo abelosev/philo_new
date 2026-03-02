@@ -15,8 +15,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread -Iinc
 RM = rm -rf
 
-SRCDIR = src/
-OBJDIR = obj/
+SRCDIR = src
+OBJDIR = obj
 
 SRCS = check_input.c \
 		free_outils.c \

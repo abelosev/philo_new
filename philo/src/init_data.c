@@ -24,17 +24,17 @@ void	init_args(t_data *data, char **av)
 		data->meal_nb = 0;
 }
 
-int	init_logs(t_data *data)
+int	init_logs(t_data *data) // убрала все \n
 {
 	data->logs = malloc(sizeof(char *) * 7);
 	if (!data->logs)
 		return (1);
-	data->logs[0] = ft_strdup("has taken a fork\n");
-	data->logs[1] = ft_strdup("is eating\n");
-	data->logs[2] = ft_strdup("is sleeping\n");
-	data->logs[3] = ft_strdup("is thinking\n");
-	data->logs[4] = ft_strdup("died\n");
-	data->logs[5] = ft_strdup("All philosophers are full\n");
+	data->logs[0] = ft_strdup("has taken a fork");
+	data->logs[1] = ft_strdup("is eating");
+	data->logs[2] = ft_strdup("is sleeping");
+	data->logs[3] = ft_strdup("is thinking");
+	data->logs[4] = ft_strdup("died");
+	data->logs[5] = ft_strdup("All philosophers are full");
 	data->logs[6] = NULL;
 	return (0);
 }
