@@ -12,13 +12,13 @@
 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -g3 -Iinc
+CFLAGS = -Wall -Wextra -Werror -pthread -Iinc
+RM = rm -rf
 
-SRCDIR = ./src/
-OBJDIR = ./obj/
+SRCDIR = src/
+OBJDIR = obj/
 
-SRC	=	${addprefix src/, \
-		check_input.c \
+SRCS = check_input.c \
 		free_outils.c \
 		init_data.c \
 		init_philo.c \
@@ -27,26 +27,26 @@ SRC	=	${addprefix src/, \
 		routine.c \
 		eating.c \
 		print_outils.c \
-		philo_outils.c}
+		philo_outils.c
 
-OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
+OBJ = $(SRCS:%.c=$(OBJDIR)/%.o)
 
-$(NAME) : $(OBJDIR) $(OBJ)
+all: $(NAME)
+
+$(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
-all: $(NAME)
-
 clean:
-	rm -rf $(OBJDIR)
+	$(RM) $(OBJDIR)
 
 fclean: clean
-	rm -rf $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 

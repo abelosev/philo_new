@@ -18,7 +18,7 @@ void	death_log(t_philo *ph)
 
 	pthread_mutex_lock(&ph->data->print);
 	time_ms = get_timestamp() - ph->data->start_simul;
-	printf("%lu %d %s\n", time_ms, ph->id, ph->data->logs[4]);
+	printf("%llu %d %s\n", time_ms, ph->id, ph->data->logs[4]);
 	pthread_mutex_unlock(&ph->data->print);
 }
 
@@ -28,7 +28,7 @@ void	full_log(t_philo *ph)
 
 	pthread_mutex_lock(&ph->data->print);
 	time_ms = get_timestamp() - ph->data->start_simul;
-	printf("%lu %s\n", time_ms, ph->data->logs[5]);
+	printf("%llu %s\n", time_ms, ph->data->logs[5]);
 	pthread_mutex_unlock(&ph->data->print);
 }
 
@@ -40,7 +40,7 @@ int	ft_print(t_philo *ph, int index)
 		return (1);
 	pthread_mutex_lock(&ph->data->print);
 	time_ms = get_timestamp() - ph->data->start_simul;
-	printf("%lu %d %s\n", time_ms, ph->id, ph->data->logs[index]);
+	printf("%llu %d %s\n", time_ms, ph->id, ph->data->logs[index]);
 	pthread_mutex_unlock(&ph->data->print);
 	return (0);
 }
