@@ -10,7 +10,7 @@ Each philosopher is a thread, and the forks between them are protected by mutexe
 
 ```
 make
-./philo <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [number_of_meals]
+./philo <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> <number_of_meals>
 ```
 
 ## Implementation
@@ -25,28 +25,32 @@ make
 
 5/ A custom **ft_usleep** with periodic death-checks ensures timely simulation termination.  
 
-## How to determine if a philosopher will die or not?
+### Structures
+///
 
+
+### How to determine if a philosopher will die or not?
+///
 
 ## Several tests
 
 ### A philosopher dies
 
-`1 800 200 200`
-`2 60 60 60`
-`4 310 200 100` 
-`4 800 350 450`
-`5 300 100 60`
-`105 200 60 60`
+`1 800 200 200`  
+`2 60 60 60`  
+`4 310 200 100`  
+`4 800 350 450`  
+`5 300 100 60`  
+`105 200 60 60`  
 
 ### 2. No one dies
 
-`2 410 200 200`
-`4 800 200 200`
-`5 310 100 70`
-`5 610 200 200`
-`200 800 200 200`
-`199 190 60 60`
+`2 410 200 200`  
+`4 800 200 200`  
+`5 310 100 70`  
+`5 610 200 200`  
+`200 800 200 200`  
+`199 190 60 60`  
 
 ## Resources
 
