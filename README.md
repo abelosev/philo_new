@@ -10,7 +10,7 @@ Each philosopher is a thread, and the forks between them are protected by mutexe
 
 ```
 make
-./philo <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> <number_of_meals>
+./philo <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [number_of_meals]
 ```
 
 ## Implementation
@@ -33,31 +33,31 @@ make
 
 ```typedef struct s_philo
 {
-	int				id;
-	int				had_meals;
-	pthread_t		th;
-	u_int64_t		start_meal;
-	struct s_data	*data;
-	struct s_philo	*next;
+	int				id;			// philosopher number (1 to philo_nb)
+	int				had_meals;	// number of meals eaten so far
+	pthread_t		th;			// thread associated with this philosopher
+	u_int64_t		start_meal;	// timestamp of the last meal start
+	struct s_data	*data;		// pointer to shared simulation data
+	struct s_philo	*next;		// next philosopher in linked list
 }	t_philo;
 ```
 ```
 typedef struct s_data
 {
-	int				philo_nb;
+	int				philo_nb;		// total number of philosophers
 	int				time_die;
 	int				time_eat;
 	int				time_sleep;
-	int				meal_nb;
-	int				nb_full;
-	u_int64_t		start_simul;
-	t_philo			*philos;
-	bool			flag_death;
-	pthread_mutex_t	*fork;
-	pthread_mutex_t	print;
-	pthread_mutex_t	full;
-	pthread_mutex_t	dead;
-	char			**logs;
+	int				meal_nb;		// 0 if unused
+	int				nb_full;		// count of philosophers that reached meal_nb
+	u_int64_t		start_simul;	// simulation start timestamp (ms)
+	t_philo			*philos;		// linked list of all philosophers
+	bool			flag_death;		// true if a philosopher has died
+	pthread_mutex_t	*fork;			// array of mutexes, one per fork
+	pthread_mutex_t	print;			// mutex protecting stdout output
+	pthread_mutex_t	full;			// mutex protecting nb_full counter
+	pthread_mutex_t	dead;			// mutex protecting flag_death
+	char			**logs;			// array of log message strings
 }	t_data;
 ```
 
@@ -78,8 +78,8 @@ typedef struct s_data
 `4 800 200 200`  
 `5 310 100 70`  
 `5 610 200 200`  
-`200 800 200 200`  
-`199 190 60 60`  
+`200 800 200 200`  // починить
+`199 190 60 60`  // починить
 
 ## Resources
 
