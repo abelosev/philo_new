@@ -17,20 +17,49 @@ make
 
 1/ Each philosopher runs in its own **pthread**. 
 
-2/ Mutexes protect shared resources: forks, death flag, print output, and meal counters.  
+2/ Mutexes protect shared resources: forks, death flag, print output, meal counters.  
 
-3/ An odd/even fork-picking strategy prevents deadlock by ensuring philosophers don't all reach for the same fork first.  
+3/ A custom **ft_usleep** with periodic death-checks ensures timely simulation termination.  
 
-4/ A staggered start **create_gap** spreads out initial fork contention, especially for odd numbers of philosophers.  
+4/ An odd/even fork-picking strategy prevents deadlock by ensuring philosophers don't all reach for the same fork first.  
 
-5/ A custom **ft_usleep** with periodic death-checks ensures timely simulation termination.  
+### Algorithm
+
+1/ Even nb of philosophers : 2 groups (even IDs wait 30ms)  
+
+2/ Odd nb of philosophers : 3 groups via id % 3 (0/30/60ms delays) + extra eat/2 thinking pause in the loop to spread fork access.
 
 ### Structures
-///
 
-
-### How to determine if a philosopher will die or not?
-///
+```typedef struct s_philo
+{
+	int				id;
+	int				had_meals;
+	pthread_t		th;
+	u_int64_t		start_meal;
+	struct s_data	*data;
+	struct s_philo	*next;
+}	t_philo;
+```
+```
+typedef struct s_data
+{
+	int				philo_nb;
+	int				time_die;
+	int				time_eat;
+	int				time_sleep;
+	int				meal_nb;
+	int				nb_full;
+	u_int64_t		start_simul;
+	t_philo			*philos;
+	bool			flag_death;
+	pthread_mutex_t	*fork;
+	pthread_mutex_t	print;
+	pthread_mutex_t	full;
+	pthread_mutex_t	dead;
+	char			**logs;
+}	t_data;
+```
 
 ## Several tests
 
