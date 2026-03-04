@@ -71,7 +71,7 @@ void	*routine(void *arg)
 			break ;
 		ft_print(ph, 3);
 		if (ph->data->philo_nb % 2 == 1
-			&& ft_usleep(ph, (ph->data->time_eat / 2)))
+			&& ft_usleep(ph, (ph->data->think_pause)))
 			break ;
 	}
 	return ((void *)ph);

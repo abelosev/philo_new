@@ -63,6 +63,10 @@ int	init_mutexes(t_data *data)
 int	init_data(t_data *data, char **av)
 {
 	init_args(data, av);
+	if (data->time_eat > data->time_sleep)
+		data->think_pause = data->time_eat - data->time_sleep;
+	else
+		data->think_pause = data->time_eat / 2;
 	data->flag_death = false;
 	data->nb_full = 0;
 	data->start_simul = get_timestamp();
