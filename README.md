@@ -13,6 +13,15 @@ make
 ./philo <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [number_of_meals]
 ```
 
+```
+valgrind --tool=helgrind ./philo 4 800 200 200
+```
+
+```
+cc -Wall -Wextra -Werror -fsanitize=thread -g *.c -o philo
+./philo 4 800 200 200
+```
+
 ## Implementation
 
 1/ Each philosopher runs in its own **pthread**. 
