@@ -25,6 +25,11 @@ int	get_data(t_data *data, char **av)
 		free_data(data);
 		return (1);
 	}
+	if (start_threads(data))
+	{
+		free_data(data);
+		return (1);
+	}
 	return (0);
 }
 

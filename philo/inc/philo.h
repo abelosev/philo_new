@@ -69,5 +69,6 @@ void		full_log(t_philo *ph);
 u_int64_t	get_timestamp(void);
 t_philo		*philo_list(t_data *data);
 t_philo		*philo_list(t_data *data);
+int			start_threads(t_data *data);
 
 #endif

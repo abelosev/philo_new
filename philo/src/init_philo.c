@@ -23,11 +23,11 @@ t_philo	*philo_create(int i, t_data *data)
 	ph->had_meals = 0;
 	ph->start_meal = 0;
 	ph->data = data;
-	if (pthread_create(&(ph->th), NULL, routine, (void *)ph))
-	{
-		free(ph);
-		return (NULL);
-	}
+	// if (pthread_create(&(ph->th), NULL, routine, (void *)ph))
+	// {
+	// 	free(ph);
+	// 	return (NULL);
+	// }
 	ph->next = NULL;
 	return (ph);
 }
@@ -55,4 +55,37 @@ t_philo	*philo_list(t_data *data)
 		i++;
 	}
 	return (begin);
+}
+
+static void	set_stop(t_data *data) // новая функция
+{
+	pthread_mutex_lock(&data->dead);
+	data->flag_death = true;
+	pthread_mutex_unlock(&data->dead);
+}
+
+int start_threads(t_data *data) // новая функция
+{
+	t_philo *ph;
+	t_philo *tmp;
+	
+	data->start_simul = get_timestamp();
+	ph = data->philos;
+	while (ph)
+	{
+		ph->start_meal = data->start_simul;
+		if (pthread_create(&ph->th, NULL, routine, (void *)ph) != 0)
+		{
+			set_stop(data);
+			tmp = data->philos;
+			while (tmp != ph)
+			{
+				pthread_join(tmp->th, NULL);
+				tmp = tmp->next;
+			}
+			return (1);
+		}
+		ph = ph->next;
+	}
+	return (0);
 }
