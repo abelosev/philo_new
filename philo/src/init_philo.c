@@ -24,7 +24,10 @@ t_philo	*philo_create(int i, t_data *data)
 	ph->start_meal = 0;
 	ph->data = data;
 	if (pthread_create(&(ph->th), NULL, routine, (void *)ph))
+	{
+		free(ph); // modif
 		return (NULL);
+	}
 	ph->next = NULL;
 	return (ph);
 }
@@ -36,6 +39,8 @@ t_philo	*philo_list(t_data *data)
 	t_philo	*curr;
 
 	begin = philo_create(1, data);
+	if (!begin)
+		return (NULL); // modif
 	curr = begin;
 	i = 2;
 	while (i <= data->philo_nb)
