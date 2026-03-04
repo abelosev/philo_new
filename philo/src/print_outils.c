@@ -35,7 +35,7 @@ void	full_log(t_philo *ph)
 int	ft_print(t_philo *ph, int index)
 {
 	unsigned long long	time_ms;
-	int			status;
+	int					status;
 
 	status = end_simul(ph);
 	if (status == 3)

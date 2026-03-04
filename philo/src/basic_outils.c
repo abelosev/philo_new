@@ -65,8 +65,8 @@ int	ft_atoi_modif(const char *str)
 
 unsigned long long	get_timestamp(void)
 {
-	struct timeval	tv;
-	unsigned long long		time_ms;
+	struct timeval		tv;
+	unsigned long long	time_ms;
 
 	gettimeofday(&tv, NULL);
 	time_ms = tv.tv_sec * 1000 + (tv.tv_usec / 1000);

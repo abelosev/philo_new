@@ -66,8 +66,7 @@ int	init_data(t_data *data, char **av)
 	init_args(data, av);
 	data->flag_death = false;
 	data->nb_full = 0;
-	//data->start_simul = get_timestamp();
-	data->start_simul = 0; // новая строка
+	data->start_simul = 0;
 	data->philos = NULL;
 	data->fork = NULL;
 	data->logs = NULL;

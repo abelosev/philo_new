@@ -44,7 +44,7 @@ bool	check_nbr(const char *str, long *res)
 
 bool	check_input(int ac, char **av)
 {
-	int	i;
+	int		i;
 	long	res;
 
 	i = 1;
