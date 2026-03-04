@@ -41,7 +41,6 @@ typedef struct s_data
 	int				time_sleep;
 	int				meal_nb;
 	int				nb_full;
-	int				think_pause;
 	u_int64_t		start_simul;
 	t_philo			*philos;
 	bool			flag_death;

@@ -6,7 +6,7 @@
 /*   By: anbelose <anbelose@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 17:59:27 by anbelose          #+#    #+#             */
-/*   Updated: 2026/02/25 17:59:34 by anbelose         ###   ########.fr       */
+/*   Updated: 2026/03/04 21:47:04 by anbelose         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	init_logs(t_data *data)
 	data->logs[4] = ft_strdup("died");
 	data->logs[5] = ft_strdup("All philosophers are full");
 	data->logs[6] = NULL;
-	if (!data->logs[0] || !data->logs[1] || !data->logs[2] || !data->logs[3] || !data->logs[4] || !data->logs[5])
+	if (!data->logs[0] || !data->logs[1] || !data->logs[2]
+		|| !data->logs[3] || !data->logs[4] || !data->logs[5])
 		return (free_tab(data->logs), 1);
 	return (0);
 }
@@ -63,10 +64,6 @@ int	init_mutexes(t_data *data)
 int	init_data(t_data *data, char **av)
 {
 	init_args(data, av);
-	if (data->time_eat > data->time_sleep)
-		data->think_pause = data->time_eat - data->time_sleep;
-	else
-		data->think_pause = data->time_eat / 2;
 	data->flag_death = false;
 	data->nb_full = 0;
 	data->start_simul = get_timestamp();

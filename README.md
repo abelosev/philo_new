@@ -14,12 +14,7 @@ make
 ```
 
 ```
-valgrind --tool=helgrind ./philo 4 800 200 200
-```
-
-```
-cc -Wall -Wextra -Werror -fsanitize=thread -g *.c -o philo
-./philo 4 800 200 200
+valgrind --tool=helgrind ./philo 4 310 200 100
 ```
 
 ## Implementation
@@ -68,27 +63,7 @@ typedef struct s_data
 	pthread_mutex_t	dead;			// mutex protecting flag_death
 	char			**logs;			// array of log message strings
 }	t_data;
-```
-
-## Several tests
-
-### A philosopher dies
-
-`1 800 200 200`  
-`2 60 60 60`  
-`4 310 200 100`  
-`4 800 350 450`  
-`5 300 100 60`  
-`105 200 60 60`  
-
-### No one dies
-
-`2 410 200 200`  
-`4 800 200 200`  
-`5 310 100 70`  
-`5 610 200 200`  
-`200 800 200 200`  // починить  
-`199 190 60 60`  // починить  
+```  
 
 ## Resources
 
