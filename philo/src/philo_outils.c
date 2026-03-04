@@ -21,7 +21,7 @@ int	end_simul(t_philo *ph)
 	if (ph->data->flag_death)
 		res = 1;
 	else if (!ph->data->flag_death
-		&& get_timestamp() - ph->start_meal >= (u_int64_t)ph->data->time_die)
+		&& get_timestamp() - ph->start_meal >= (unsigned long long)ph->data->time_die)
 	{
 		ph->data->flag_death = true;
 		res = 3;
@@ -35,9 +35,9 @@ int	end_simul(t_philo *ph)
 	return (res);
 }
 
-int	ft_usleep(t_philo *ph, u_int64_t gap)
+int	ft_usleep(t_philo *ph, unsigned long long gap)
 {
-	u_int64_t	start;
+	unsigned long long	start;
 	int			status;
 
 	start = get_timestamp();

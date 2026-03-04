@@ -17,7 +17,7 @@ bool	is_digit(char c)
 	return (c >= '0' && c <= '9');
 }
 
-bool	check_nbr(const char *str, int *res)
+bool	check_nbr(const char *str, long *res)
 {
 	int	i;
 
@@ -45,7 +45,7 @@ bool	check_nbr(const char *str, int *res)
 bool	check_input(int ac, char **av)
 {
 	int	i;
-	int	res;
+	long	res;
 
 	i = 1;
 	res = 0;

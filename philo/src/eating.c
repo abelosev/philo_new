@@ -23,15 +23,8 @@ int	taking_fork(t_philo *ph, int f_index)
 	return (0);
 }
 
-int	forks_taken(t_philo *ph, int l_index, int r_index)
+static int	eat_and_wait(t_philo *ph, int l_index, int r_index)
 {
-	ph->start_meal = get_timestamp();
-	if (ft_print(ph, 1))
-	{
-		pthread_mutex_unlock(&ph->data->fork[r_index]);
-		pthread_mutex_unlock(&ph->data->fork[l_index]);
-		return (1);
-	}
 	ph->had_meals++;
 	pthread_mutex_lock(&ph->data->full);
 	if (ph->had_meals == ph->data->meal_nb)
@@ -45,7 +38,28 @@ int	forks_taken(t_philo *ph, int l_index, int r_index)
 	}
 	pthread_mutex_unlock(&ph->data->fork[r_index]);
 	pthread_mutex_unlock(&ph->data->fork[l_index]);
-	if (end_simul(ph) != 0)
+	return (0);
+}
+
+int	forks_taken(t_philo *ph, int l_index, int r_index)
+{
+	int	status;
+
+	pthread_mutex_lock(&ph->data->dead);
+	ph->start_meal = get_timestamp();
+	pthread_mutex_unlock(&ph->data->dead);
+	if (ft_print(ph, 1))
+	{
+		pthread_mutex_unlock(&ph->data->fork[r_index]);
+		pthread_mutex_unlock(&ph->data->fork[l_index]);
+		return (1);
+	}
+	if (eat_and_wait(ph, l_index, r_index))
+		return (1);
+	status = end_simul(ph);
+	if (status == 3)
+		death_log(ph);
+	if (status != 0)
 		return (1);
 	return (0);
 }

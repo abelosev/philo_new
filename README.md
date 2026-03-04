@@ -40,7 +40,7 @@ valgrind --tool=helgrind ./philo 4 310 200 100
 	int				id;			// philosopher number (1 to philo_nb)
 	int				had_meals;	// number of meals eaten so far
 	pthread_t		th;			// thread associated with this philosopher
-	u_int64_t		start_meal;	// timestamp of the last meal start
+	unsigned long long		start_meal;	// timestamp of the last meal start
 	struct s_data	*data;		// pointer to shared simulation data
 	struct s_philo	*next;		// next philosopher in linked list
 }	t_philo;
@@ -54,7 +54,7 @@ typedef struct s_data
 	int				time_sleep;
 	int				meal_nb;		// 0 if unused
 	int				nb_full;		// count of philosophers that reached meal_nb
-	u_int64_t		start_simul;	// simulation start timestamp (ms)
+	unsigned long long		start_simul;	// simulation start timestamp (ms)
 	t_philo			*philos;		// linked list of all philosophers
 	bool			flag_death;		// true if a philosopher has died
 	pthread_mutex_t	*fork;			// array of mutexes, one per fork

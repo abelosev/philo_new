@@ -14,7 +14,7 @@
 
 void	death_log(t_philo *ph)
 {
-	u_int64_t	time_ms;
+	unsigned long long	time_ms;
 
 	pthread_mutex_lock(&ph->data->print);
 	time_ms = get_timestamp() - ph->data->start_simul;
@@ -24,7 +24,7 @@ void	death_log(t_philo *ph)
 
 void	full_log(t_philo *ph)
 {
-	u_int64_t	time_ms;
+	unsigned long long	time_ms;
 
 	pthread_mutex_lock(&ph->data->print);
 	time_ms = get_timestamp() - ph->data->start_simul;
@@ -34,7 +34,7 @@ void	full_log(t_philo *ph)
 
 int	ft_print(t_philo *ph, int index)
 {
-	u_int64_t	time_ms;
+	unsigned long long	time_ms;
 	int			status;
 
 	status = end_simul(ph);
