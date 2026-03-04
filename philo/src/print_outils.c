@@ -39,6 +39,14 @@ int	ft_print(t_philo *ph, int index)
 	if (end_simul(ph) != 0)
 		return (1);
 	pthread_mutex_lock(&ph->data->print);
+	pthread_mutex_lock(&ph->data->dead);
+	if (ph->data->flag_death)
+	{
+		pthread_mutex_unlock(&ph->data->dead);
+		pthread_mutex_unlock(&ph->data->print);
+		return (1);
+	}
+	pthread_mutex_unlock(&ph->data->dead);
 	time_ms = get_timestamp() - ph->data->start_simul;
 	printf("%llu %d %s\n", time_ms, ph->id, ph->data->logs[index]);
 	pthread_mutex_unlock(&ph->data->print);

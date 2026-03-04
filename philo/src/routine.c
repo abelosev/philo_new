@@ -36,14 +36,17 @@ void	create_gap(t_philo *ph)
 	if (ph->data->philo_nb % 2 == 0)
 	{
 		if (ph->id % 2 == 0)
-			usleep(30 * 1000);
+			//usleep(30 * 1000);
+			usleep(ph->data->time_eat * 500);
 	}
 	else if (ph->data->philo_nb % 2 == 1)
 	{
 		if (ph->id % 3 == 2)
-			usleep(30 * 1000);
+			//usleep(30 * 1000);
+			usleep(ph->data->time_eat * 500);
 		else if (ph->id % 3 == 0)
-			usleep(60 * 1000);
+			//usleep(60 * 1000);
+			usleep(ph->data->time_eat * 1000);
 	}
 }
 

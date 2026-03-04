@@ -59,6 +59,7 @@ int			ft_print(t_philo *ph, int index);
 int			eating(t_philo *ph, int l_index, int r_index);
 void		free_list(t_philo *list);
 void		free_data(t_data *data);
+void		free_tab(char **tab);
 bool		check_nbr(const char *str, int *res);
 bool		check_input(int ac, char **av);
 char		*ft_strdup(const char *s1);
