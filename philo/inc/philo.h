@@ -43,9 +43,9 @@ typedef struct s_data
 	int					nb_full;
 	unsigned long long	start_simul;
 	t_philo				*philos;
+	pthread_t			monitor_th;
 	bool				flag_death;
 	pthread_mutex_t		*fork;
-	pthread_t			monitor_th;
 	pthread_mutex_t		print;
 	pthread_mutex_t		full;
 	pthread_mutex_t		dead;

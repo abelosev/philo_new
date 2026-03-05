@@ -37,31 +37,32 @@ valgrind --tool=helgrind ./philo 4 310 200 100
 
 ```typedef struct s_philo
 {
-	int				id;			// philosopher number (1 to philo_nb)
-	int				had_meals;	// number of meals eaten so far
-	pthread_t		th;			// thread associated with this philosopher
-	unsigned long long		start_meal;	// timestamp of the last meal start
-	struct s_data	*data;		// pointer to shared simulation data
-	struct s_philo	*next;		// next philosopher in linked list
+	int					id;			// philosopher's number (1 to philo_nb)
+	int					had_meals;	// number of meals eaten so far
+	pthread_t			th;			// thread associated with this philosopher
+	unsigned long long	start_meal;	// timestamp of the last meal start
+	struct s_data		*data;		// pointer to shared simulation data
+	struct s_philo		*next;		// next philosopher in linked list
 }	t_philo;
 ```
 ```
 typedef struct s_data
 {
-	int				philo_nb;		// total number of philosophers
-	int				time_die;
-	int				time_eat;
-	int				time_sleep;
-	int				meal_nb;		// 0 if unused
-	int				nb_full;		// count of philosophers that reached meal_nb
-	unsigned long long		start_simul;	// simulation start timestamp (ms)
-	t_philo			*philos;		// linked list of all philosophers
-	bool			flag_death;		// true if a philosopher has died
-	pthread_mutex_t	*fork;			// array of mutexes, one per fork
-	pthread_mutex_t	print;			// mutex protecting stdout output
-	pthread_mutex_t	full;			// mutex protecting nb_full counter
-	pthread_mutex_t	dead;			// mutex protecting flag_death
-	char			**logs;			// array of log message strings
+	int					philo_nb;		// total number of philosophers
+	int					time_die;
+	int					time_eat;
+	int					time_sleep;
+	int					meal_nb;		// 0 if unused
+	int					nb_full;		// count of philosophers that reached meal_nb
+	unsigned long long	start_simul;	// simulation start timestamp (ms)
+	t_philo				*philos;		// linked list of all philosophers
+	pthread_t			monitor_th;		// thread to check philosopher's death
+	bool				flag_death;		// true if a philosopher has died
+	pthread_mutex_t		*fork;			// array of mutexes, one per fork
+	pthread_mutex_t		print;			// mutex protecting stdout output
+	pthread_mutex_t		full;			// mutex protecting nb_full counter
+	pthread_mutex_t		dead;			// mutex protecting flag_death
+	char				**logs;			// array of log message strings
 }	t_data;
 ```  
 
