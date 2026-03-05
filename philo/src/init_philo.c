@@ -59,16 +59,28 @@ static void	set_stop(t_data *data)
 	pthread_mutex_unlock(&data->dead);
 }
 
-int	start_threads(t_data *data)
+static void	init_start_meals(t_data *data)
 {
 	t_philo	*ph;
-	t_philo	*tmp;
 
 	data->start_simul = get_timestamp();
 	ph = data->philos;
 	while (ph)
 	{
 		ph->start_meal = data->start_simul;
+		ph = ph->next;
+	}
+}
+
+int	start_threads(t_data *data)
+{
+	t_philo	*ph;
+	t_philo	*tmp;
+
+	init_start_meals(data);
+	ph = data->philos;
+	while (ph)
+	{
 		if (pthread_create(&ph->th, NULL, routine, (void *)ph) != 0)
 		{
 			set_stop(data);

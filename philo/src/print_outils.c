@@ -35,12 +35,8 @@ void	full_log(t_philo *ph)
 int	ft_print(t_philo *ph, int index)
 {
 	unsigned long long	time_ms;
-	int					status;
 
-	status = end_simul(ph);
-	if (status == 3)
-		death_log(ph);
-	if (status != 0)
+	if (end_simul(ph) != 0)
 		return (1);
 	pthread_mutex_lock(&ph->data->print);
 	pthread_mutex_lock(&ph->data->dead);

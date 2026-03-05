@@ -12,27 +12,44 @@
 
 #include "philo.h"
 
+static int	check_all_philos(t_data *data)
+{
+	t_philo	*tmp;
+
+	tmp = data->philos;
+	while (tmp)
+	{
+		if (get_timestamp() - tmp->start_meal
+			>= (unsigned long long)data->time_die)
+		{
+			data->flag_death = true;
+			pthread_mutex_unlock(&data->full);
+			pthread_mutex_unlock(&data->dead);
+			death_log(tmp);
+			return (3);
+		}
+		tmp = tmp->next;
+	}
+	if (data->meal_nb != 0 && data->nb_full == data->philo_nb)
+		return (2);
+	return (0);
+}
+
 int	end_simul(t_philo *ph)
 {
 	int	res;
 
 	pthread_mutex_lock(&ph->data->dead);
-	pthread_mutex_lock(&(ph->data->full));
+	pthread_mutex_lock(&ph->data->full);
 	if (ph->data->flag_death)
 		res = 1;
-	else if (!ph->data->flag_death
-		&& get_timestamp() - ph->start_meal
-		>= (unsigned long long)ph->data->time_die)
-	{
-		ph->data->flag_death = true;
-		res = 3;
-	}
-	else if (ph->data->meal_nb != 0 && ph->data->nb_full == ph->data->philo_nb)
-		res = 2;
 	else
-		res = 0;
-	pthread_mutex_unlock(&(ph->data->full));
-	pthread_mutex_unlock(&ph->data->dead);
+		res = check_all_philos(ph->data);
+	if (res != 3)
+	{
+		pthread_mutex_unlock(&ph->data->full);
+		pthread_mutex_unlock(&ph->data->dead);
+	}
 	return (res);
 }
 
@@ -45,8 +62,6 @@ int	ft_usleep(t_philo *ph, unsigned long long gap)
 	while (get_timestamp() - start < gap)
 	{
 		status = end_simul(ph);
-		if (status == 3)
-			death_log(ph);
 		if (status != 0)
 			return (1);
 		usleep(100);
