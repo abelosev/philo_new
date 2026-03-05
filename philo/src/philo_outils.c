@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-static int	check_all_philos(t_data *data)
+int	check_all_philos(t_data *data)
 {
 	t_philo	*tmp;
 
@@ -53,18 +53,40 @@ int	end_simul(t_philo *ph)
 	return (res);
 }
 
+
+// int	ft_usleep(t_philo *ph, unsigned long long gap)
+// {
+// 	unsigned long long	start;
+// 	int					status;
+
+// 	start = get_timestamp();
+// 	while (get_timestamp() - start < gap)
+// 	{
+// 		status = end_simul(ph);
+// 		if (status != 0)
+// 			return (1);
+// 		usleep(100);
+// 	}
+// 	return (0);
+// }
+
 int	ft_usleep(t_philo *ph, unsigned long long gap)
 {
 	unsigned long long	start;
 	int					status;
+	int					sleep_time;
 
+	if (ph->data->philo_nb > 100)
+		sleep_time = 500;
+	else
+		sleep_time = 100;
 	start = get_timestamp();
 	while (get_timestamp() - start < gap)
 	{
 		status = end_simul(ph);
 		if (status != 0)
 			return (1);
-		usleep(100);
+		usleep(sleep_time);
 	}
 	return (0);
 }
