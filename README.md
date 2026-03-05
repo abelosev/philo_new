@@ -19,19 +19,21 @@ valgrind --tool=helgrind ./philo 4 310 200 100
 
 ## Implementation
 
-1/ Each philosopher runs in its own **pthread**. 
+1/ Each philosopher runs in its own **pthread**. A monitor thread checks for philosopher's death.  
 
 2/ Mutexes protect shared resources: forks, death flag, print output, meal counters.  
 
-3/ A custom **ft_usleep** with periodic death-checks ensures timely simulation termination.  
+3/ A **monitor** thread iterates over all philosophers to detect death within 10 ms, while philosopher theads only check a boolean flag. 
 
-4/ An odd/even fork-picking strategy prevents deadlock by ensuring philosophers don't all reach for the same fork first.  
+4/ A custom **ft_usleep** with periodic flag-checks ensures timely simulation termination.
+
+3/ An odd/even fork-picking strategy prevents deadlock by ensuring philosophers don't all reach for the same fork first.  
 
 ### Algorithm
 
-1/ Even nb of philosophers : 2 groups (even IDs wait 30ms)  
+1/ Even nb of philosophers : 2 groups (even IDs wait time_to_eat / 2 before starting)  
 
-2/ Odd nb of philosophers : 3 groups via id % 3 (0/30/60ms delays) + extra eat/2 thinking pause in the loop to spread fork access.
+2/ Odd nb of philosophers : 3 groups via id % 3 (with 0 - time_to_eat/2 - time_to_eat delays) + extra thinking pause of (time_to_eat * 2 - time_to_sleep) between cycles to spread fork access evenly.
 
 ### Structures
 
