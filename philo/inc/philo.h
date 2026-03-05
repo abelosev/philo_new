@@ -45,6 +45,7 @@ typedef struct s_data
 	t_philo				*philos;
 	bool				flag_death;
 	pthread_mutex_t		*fork;
+	pthread_t			monitor_th;
 	pthread_mutex_t		print;
 	pthread_mutex_t		full;
 	pthread_mutex_t		dead;
@@ -57,18 +58,19 @@ int					init_data(t_data *data, char **av);
 int					end_simul(t_philo *ph);
 int					ft_print(t_philo *ph, int index);
 int					eating(t_philo *ph, int l_index, int r_index);
+int					start_threads(t_data *data);
 void				free_list(t_philo *list);
 void				free_data(t_data *data);
 void				free_tab(char **tab);
-bool				check_nbr(const char *str, long *res);
-bool				check_input(int ac, char **av);
-char				*ft_strdup(const char *s1);
 void				*routine(void *arg);
 void				death_log(t_philo *ph);
 void				full_log(t_philo *ph);
+void				*monitor(void *arg);
+bool				check_input(int ac, char **av);
+bool				check_nbr(const char *str, long *res);
+char				*ft_strdup(const char *s1);
 unsigned long long	get_timestamp(void);
 t_philo				*philo_list(t_data *data);
 t_philo				*philo_list(t_data *data);
-int					start_threads(t_data *data);
 
 #endif

@@ -33,26 +33,34 @@ int	get_data(t_data *data, char **av)
 	return (0);
 }
 
+static void	join_philos(t_data *data)
+{
+	t_philo	*start;
+
+	start = data->philos;
+	while (start != NULL)
+	{
+		pthread_join(start->th, NULL);
+		start = start->next;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_data	*data;
-	t_philo	*start;
 
 	if (!check_input(ac, av))
 		return (1);
 	data = malloc(sizeof(t_data));
 	if (!data || get_data(data, av))
 		return (1);
-	start = data->philos;
-	while (start != NULL)
+	if (pthread_create(&data->monitor_th, NULL, monitor, (void *)data) != 0)
 	{
-		if (pthread_join(start->th, NULL))
-		{
-			free_data(data);
-			return (1);
-		}
-		start = start->next;
+		free_data(data);
+		return (1);
 	}
+	pthread_join(data->monitor_th, NULL);
+	join_philos(data);
 	if (data->meal_nb != 0 && data->nb_full == data->philo_nb)
 		full_log(data->philos);
 	free_data(data);
